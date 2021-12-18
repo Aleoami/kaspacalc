@@ -15,27 +15,28 @@ const Home: React.FC = () => {
   const { defaultInputValues, setDefaultInputValues } =
     useStore("sessionStore");
 
+  const handleChangeValues = React.useCallback(
+    (key: keyof KaspaInputs, value: number | undefined) => {
+      setDefaultInputValues(key, value);
+    },
+    [setDefaultInputValues]
+  );
+
   React.useEffect(() => {
     defaultInputValues &&
       getKeys(defaultInputValues).map((key) =>
         setKaspaInputs((curKaspadInputs) => ({
           ...curKaspadInputs,
-          [key]: { ...curKaspadInputs[key], value: defaultInputValues[key] },
+          [key]: {
+            ...curKaspadInputs[key],
+            value:
+              defaultInputValues[key] !== 0
+                ? defaultInputValues[key]
+                : undefined,
+          },
         }))
       );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleChangeDefaultValues = React.useCallback(
-    (key: keyof KaspaInputs, value: number | undefined) => {
-      setDefaultInputValues(key, value);
-      setKaspaInputs((curInputs) => ({
-        ...curInputs,
-        [key]: { ...curInputs[key], value },
-      }));
-    },
-    [setDefaultInputValues]
-  );
+  }, [defaultInputValues]);
 
   return (
     <CustomContainer>
@@ -44,10 +45,8 @@ const Home: React.FC = () => {
         <OffsetKaspaInput
           key={index}
           data={kaspaInputs}
-          setData={setKaspaInputs}
+          setData={handleChangeValues}
           label={key}
-          defaultData={defaultInputValues}
-          setDefaultData={handleChangeDefaultValues}
         />
       ))}
       <KaspaTotal data={kaspaInputs} className="mt-4" />

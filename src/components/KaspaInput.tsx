@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { DefaultInputValues, KaspaInputs } from "../constants/Kaspa";
+import { KaspaInputs } from "../constants/Kaspa";
 
 interface KaspaInputProps {
   data: KaspaInputs;
   label: keyof KaspaInputs;
-  setData: (newValue: KaspaInputs) => void;
-  defaultData: DefaultInputValues | null;
-  setDefaultData: (key: keyof KaspaInputs, value: number | undefined) => void;
+  setData: (key: keyof KaspaInputs, value: number | undefined) => void;
   className?: string;
 }
 
@@ -16,8 +14,6 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
   label,
   setData,
   className,
-  defaultData,
-  setDefaultData,
 }) => {
   return (
     <Wrapper className={className}>
@@ -31,24 +27,10 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
           value={data[label].value}
           onChange={(e) => {
             (!isNaN(Number(e.target.value)) || e.target.value === "-") &&
-              setData({
-                ...data,
-                [label]: {
-                  ...data[label],
-                  value: e.target.value !== "-" ? e.target.value : undefined,
-                },
-              });
-          }}
-        />
-        <NumberInputDefault
-          className={"mt-1 ms-1 flex-shrink-1"}
-          type="text"
-          tabIndex={-1}
-          placeholder="default"
-          value={(defaultData && defaultData[label]) || undefined}
-          onChange={(e) => {
-            !isNaN(Number(e.target.value)) &&
-              setDefaultData(label, Number(e.target.value));
+              setData(
+                label,
+                e.target.value !== "-" ? Number(e.target.value) : undefined
+              );
           }}
         />
       </div>
@@ -77,19 +59,12 @@ const NumberInput = styled.input`
   :focus-visible,
   :focus {
     border-radius: 0;
-    /* border: none !important; */
     border-bottom: 2px solid #343a40 !important;
   }
 
   .isEmpty {
     border-bottom: 2px solid red;
   }
-
-  /* #a0a0a0 */
-`;
-
-const NumberInputDefault = styled(NumberInput)`
-  width: 100px;
 `;
 
 export default React.memo(KaspaInput);
