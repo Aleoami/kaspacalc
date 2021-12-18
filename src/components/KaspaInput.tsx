@@ -18,7 +18,16 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
   return (
     <Wrapper className={className}>
       <Title className="mb-0 text-dark">{data[label].title}</Title>
-      {label && <p className="mb-0 text-muted">{data[label].label}</p>}
+      {data[label].label &&
+        (data[label].label?.href ? (
+          <p className="mb-0">
+            <LblHref target="_blank" href={data[label].label?.href}>
+              {data[label].label?.text}
+            </LblHref>
+          </p>
+        ) : (
+          <p className="mb-0 text-muted">{data[label].label?.text}</p>
+        ))}
       <div className="d-flex">
         <NumberInput
           className={"w-100 mt-1"}
@@ -47,6 +56,10 @@ const Wrapper = styled.div`
 const Title = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
+`;
+
+const LblHref = styled.a`
+  text-decoration: none;
 `;
 
 const NumberInput = styled.input`
