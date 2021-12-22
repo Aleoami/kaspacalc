@@ -3,6 +3,8 @@ import {
   calcCostOf1M,
   calcDaysTo1M,
   calcDailyLocalSupply,
+  calcBlocksPerDay,
+  calcMinutesPerBlock
 } from "../utils/kaspa";
 
 export interface LabelProps {
@@ -77,5 +79,13 @@ export const KASPA_TOTAL: KaspaTotalField[] = [
   {
     label: "with approx. Kaspa per day:",
     calcValue: (data) => numberWithSpaces(Number(calcDailyLocalSupply(data) || 0).toFixed(0)),
+  },
+  {
+    label: "or blocks per day:",
+    calcValue: (data) => numberWithSpaces(Number(calcBlocksPerDay(data) || 0).toFixed(2)),
+  },
+  {
+    label: "or 1 block every, approx., minutes:",
+    calcValue: (data) => numberWithSpaces(Number(calcMinutesPerBlock(data) || 0).toFixed(1)),
   },
 ];

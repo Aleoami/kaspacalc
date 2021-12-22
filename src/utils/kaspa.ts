@@ -22,6 +22,7 @@ export const calcDailyLocalSupply = (data: KaspaInputs) => {
     undefined
   );
 };
+
 export const calcDaysTo1M = (data: KaspaInputs) => {
   const dailyTotalSupply = calcDailyLocalSupply(data);
   return (dailyTotalSupply !== undefined && 1000000 / dailyTotalSupply) || 0;
@@ -35,6 +36,7 @@ export const calcKWhPerDay = (data: KaspaInputs) => {
     undefined
   );
 };
+
 export const calcCostOf1M = (data: KaspaInputs) => {
   const { electricityPrice } = data;
   const daysTo1M = calcDaysTo1M(data);
@@ -46,4 +48,18 @@ export const calcCostOf1M = (data: KaspaInputs) => {
       daysTo1M * kWhPerDay * electricityPrice.value) ||
     undefined
   );
+};
+
+export const calcBlocksPerDay = (data: KaspaInputs) => {
+  const dailyTotalSupply = calcDailyLocalSupply(data);
+  return (dailyTotalSupply !== undefined &&
+    data.rewardPerBlock.value !== undefined &&
+    data.blocksPerSecond.value !== undefined && 
+    dailyTotalSupply / (data.rewardPerBlock.value * data.blocksPerSecond.value)) || undefined;
+};
+
+export const calcMinutesPerBlock = (data: KaspaInputs) => {
+  const blocksPerDay = calcBlocksPerDay(data);
+  return ((blocksPerDay !== undefined) &&
+    (24 * 60 / blocksPerDay)) || undefined;
 };

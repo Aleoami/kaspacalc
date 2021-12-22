@@ -40,7 +40,7 @@ const Home: React.FC = () => {
 
   return (
     <CustomContainer>
-      <h1 className="text-center mt-2 p-3">Calculate Kaspa net cost</h1>
+      <h1 className="text-center mt-2 p-3">Calculate Kaspa net cost and mining rate</h1>
       {getKeys(kaspaInputs).map((key, index) => (
         <OffsetKaspaInput
           key={index}
