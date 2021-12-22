@@ -85,7 +85,7 @@ export const KASPA_TOTAL: KaspaTotalField[] = [
     calcValue: (data) => numberWithSpaces(Number(calcBlocksPerDay(data) || 0).toFixed(2)),
   },
   {
-    label: "or 1 block every, approx., minutes:",
+    label: "or on average 1 block every, minutes:",
     calcValue: (data) => numberWithSpaces(Number(calcMinutesPerBlock(data) || 0).toFixed(1)),
   },
 ];
