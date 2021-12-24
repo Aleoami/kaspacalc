@@ -56,7 +56,7 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
   },
   electricityPrice: {
     title: "Electricity price, per 1 KWh",
-    label: { text: "in your local currecy unit" },
+    label: { text: "in your local currency unit" },
   },
 };
 
