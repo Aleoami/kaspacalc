@@ -49,7 +49,7 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
   },
   deviceHashrate: {
     title: "Your device hashrate, Mhash/s",
-    label: { text: "it is 1000 times less than shown in kaspa-miner" },
+    label: { text: "note that in older versions of miners the hashrate is shown in khash/s; in this case divide it by 1000 before entering" },
   },
   devicePowerCons: {
     title: "Your device power consumption, Watt",

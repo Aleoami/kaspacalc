@@ -55,7 +55,7 @@ export const calcBlocksPerDay = (data: KaspaInputs) => {
   return (dailyTotalSupply !== undefined &&
     data.rewardPerBlock.value !== undefined &&
     data.blocksPerSecond.value !== undefined && 
-    dailyTotalSupply / (data.rewardPerBlock.value * data.blocksPerSecond.value)) || undefined;
+    dailyTotalSupply / data.rewardPerBlock.value) || undefined;
 };
 
 export const calcMinutesPerBlock = (data: KaspaInputs) => {
