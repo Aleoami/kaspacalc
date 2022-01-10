@@ -18,16 +18,18 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
   return (
     <Wrapper className={className}>
       <Title className="mb-0 text-dark">{data[label].title}</Title>
-      {data[label].label &&
-        (data[label].label?.href ? (
-          <p className="mb-0">
-            <LblHref target="_blank" href={data[label].label?.href}>
-              {data[label].label?.text}
-            </LblHref>
-          </p>
-        ) : (
-          <p className="mb-0 text-muted">{data[label].label?.text}</p>
-        ))}
+      <p className="mb-0 text-muted">
+      {data[label].label?.map(function(it) {
+        {return (it &&
+          (it?.href ? (
+               <LblHref target="_blank" href={it?.href}>
+                {it?.text}
+              </LblHref>
+          ) : (
+            it?.text
+          )))}
+      })}
+      </p>
       <div className="d-flex">
         <NumberInput
           className={"w-100 mt-1"}

@@ -7,14 +7,18 @@ import {
   calcMinutesPerBlock
 } from "../utils/kaspa";
 
-export interface LabelProps {
+export interface LabelProp {
   text: string;
   href?: string;
 }
 
+export interface LabelProps {
+  items : [LabelProp];
+}
+
 export interface InputProps {
   title: string;
-  label?: LabelProps;
+  label?: LabelProp[];
   value?: number;
 }
 
@@ -34,29 +38,48 @@ export type DefaultInputValues = { [key in keyof typeof InputValues]?: number };
 export const INIT_INPUTS_RECORDS: KaspaInputs = {
   rewardPerBlock: {
     title: "Reward per block, Kaspa",
-    label: { text: "is 500 for today" },
+    label: [{ text: "is 500 for today" }],
   },
   blocksPerSecond: {
     title: "Blocks per second",
-    label: { text: "is 1 for today" },
+    label: [{ text: "is 1 for today" }],
   },
   networkHashrate: {
     title: "Network hashrate, Ghash/s",
-    label: {
-      text: "see hashrate here",
-      href: "http://kasboard-mainnet.daglabs-dev.com",
-    },
+    label: [{
+        text: "see hashrate here",
+        href: "http://kasboard-mainnet.daglabs-dev.com/?orgId=1&refresh=1m&from=now-5m&to=now",
+      },
+      {
+        text: " (",
+      },
+      {
+        text: "or here",
+        href: "http://kasboard.cbytensky.org//?orgId=1&refresh=1m&from=now-5m&to=now",
+      },
+      {
+        text: ")",
+      },
+    ]
   },
   deviceHashrate: {
     title: "Your device hashrate, Mhash/s",
-    label: { text: "note that in older versions of miners the hashrate is shown in khash/s; in this case divide it by 1000 before entering" },
+    label: [
+      { 
+        text: "either enter the value from your miner "
+      },
+      { 
+        text: "or look for it in one of these tables", 
+        href: "https://kaspawiki.net/index.php/Hashrate_tables" 
+      },
+    ]
   },
   devicePowerCons: {
     title: "Your device power consumption, Watt",
   },
   electricityPrice: {
     title: "Electricity price, per 1 KWh",
-    label: { text: "in your local currency unit" },
+    label: [{ text: "in your local currency unit" }],
   },
 };
 
