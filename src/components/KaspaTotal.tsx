@@ -28,6 +28,7 @@ const KaspaTotal: React.FC<KaspaTotalProps> = ({ data, className }) => {
 const OffsetTotal = styled.div`
   :not(:first-of-type) {
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 `;
 

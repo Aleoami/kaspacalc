@@ -38,7 +38,7 @@ export type DefaultInputValues = { [key in keyof typeof InputValues]?: number };
 export const INIT_INPUTS_RECORDS: KaspaInputs = {
   rewardPerBlock: {
     title: "Reward per block, Kaspa",
-    label: [{ text: "is 500 for today" }],
+    label: [{ text: "is 440 for today" }],
   },
   blocksPerSecond: {
     title: "Blocks per second",
