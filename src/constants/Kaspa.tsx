@@ -45,7 +45,7 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
     label: [{ text: "is 1 for today" }],
   },
   networkHashrate: {
-    title: "Network hashrate, Ghash/s",
+    title: "Network hashrate, Thash/s",
     label: [{
         text: "see hashrate here",
         href: "http://kasboard-mainnet.daglabs-dev.com/?orgId=1&refresh=1m&from=now-5m&to=now",

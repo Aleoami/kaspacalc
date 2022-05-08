@@ -37,11 +37,16 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
           placeholder=" *"
           value={data[label].value}
           onChange={(e) => {
-            (!isNaN(Number(e.target.value)) || e.target.value === "-") &&
-              setData(
-                label,
-                e.target.value !== "-" ? Number(e.target.value) : undefined
-              );
+            if (isNaN(Number(e.target.value))) {
+              return undefined;
+            }
+            if (e.target.value === "-") {
+              return undefined;
+            }
+            if (e.target.value.toString().endsWith(".")) {
+              return undefined;
+            }
+            setData(label, Number(e.target.value));
           }}
         />
       </div>

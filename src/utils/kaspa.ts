@@ -18,7 +18,7 @@ export const calcDailyLocalSupply = (data: KaspaInputs) => {
       networkHashrate.value !== undefined &&
       dailyTotalSupply !== undefined &&
       (dailyTotalSupply * deviceHashrate.value) /
-        (networkHashrate.value * 1000)) ||
+        (networkHashrate.value * 1000000)) ||
     undefined
   );
 };
