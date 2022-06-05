@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     useStore("sessionStore");
 
   const handleChangeValues = React.useCallback(
-    (key: keyof KaspaInputs, value: number | undefined) => {
+    (key: keyof KaspaInputs, value: string | undefined) => {
       setDefaultInputValues(key, value);
     },
     [setDefaultInputValues]
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
 
   return (
     <CustomContainer>
-      <h1 className="text-center mt-2 p-3">Calculate Kaspa net cost and mining rate</h1>
+      <h1 className="text-center mt-2 p-3">Calculate Kaspa net cost, profitability and mining rate</h1>
       {getKeys(kaspaInputs).map((key, index) => (
         <OffsetKaspaInput
           key={index}

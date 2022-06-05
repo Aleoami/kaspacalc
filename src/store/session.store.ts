@@ -13,7 +13,7 @@ class SessionStore {
 
   setDefaultInputValues = (
     key: keyof KaspaInputs,
-    value: number | undefined
+    value: string | undefined
   ): void => {
     if (!this.defaultInputValues) this.defaultInputValues = {};
     const result = {

@@ -5,7 +5,7 @@ import { KaspaInputs } from "../constants/Kaspa";
 interface KaspaInputProps {
   data: KaspaInputs;
   label: keyof KaspaInputs;
-  setData: (key: keyof KaspaInputs, value: number | undefined) => void;
+  setData: (key: keyof KaspaInputs, value: string | undefined) => void;
   className?: string;
 }
 
@@ -20,7 +20,7 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
       <Title className="mb-0 text-dark">{data[label].title}</Title>
       <p className="mb-0 text-muted">
       {data[label].label?.map(function(it) {
-        {return (it &&
+        return (it &&
           (it?.href ? (
                <LblHref target="_blank" href={it?.href}>
                 {it?.text}
@@ -28,7 +28,7 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
           ) : (
             it?.text
           )))}
-      })}
+      )}
       </p>
       <div className="d-flex">
         <NumberInput
@@ -37,16 +37,7 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
           placeholder=" *"
           value={data[label].value}
           onChange={(e) => {
-            if (isNaN(Number(e.target.value))) {
-              return undefined;
-            }
-            if (e.target.value === "-") {
-              return undefined;
-            }
-            if (e.target.value.toString().endsWith(".")) {
-              return undefined;
-            }
-            setData(label, Number(e.target.value));
+	  	setData(label, e.target.value);
           }}
         />
       </div>
