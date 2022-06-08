@@ -57,7 +57,10 @@ export const calcCostOf1M = (data: KaspaInputs) => {
 export const calcProfitabilityOf1M = (data: KaspaInputs) => {
   const { coinPricePer1M } = data;
   const numCoinPricePer1M = Number(coinPricePer1M.value);
-  const netCostPer1M = calcCostOf1M(data);
+  const netCostPer1MRaw = calcCostOf1M(data);
+  const netCostPer1M = 
+    (netCostPer1MRaw !== undefined && netCostPer1MRaw) || 0;
+
   return ((numCoinPricePer1M !== undefined &&
     netCostPer1M !== undefined &&
     (numCoinPricePer1M - netCostPer1M)) ||
