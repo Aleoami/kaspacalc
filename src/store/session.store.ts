@@ -7,7 +7,7 @@ class SessionStore {
 
   constructor() {
     makeAutoObservable(this);
-    const sessionData = window.localStorage.getItem("defaultInputValues");
+    const sessionData = window.localStorage.getItem("defaultInputValuesV2");
     if (sessionData !== null) this.defaultInputValues = JSON.parse(sessionData);
   }
 
@@ -21,7 +21,7 @@ class SessionStore {
       [key]: value,
     };
     this.defaultInputValues = result;
-    window.localStorage.setItem("defaultInputValues", JSON.stringify(result));
+    window.localStorage.setItem("defaultInputValuesV2", JSON.stringify(result));
   };
 }
 
