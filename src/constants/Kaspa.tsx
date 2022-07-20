@@ -49,17 +49,7 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
     title: "Network hashrate, Thash/s",
     label: [{
         text: "see hashrate here",
-        href: "http://kasboard-mainnet.daglabs-dev.com/?orgId=1&refresh=1m&from=now-5m&to=now",
-      },
-      {
-        text: " (",
-      },
-      {
-        text: "or here",
-        href: "http://kasboard.cbytensky.org//?orgId=1&refresh=1m&from=now-5m&to=now",
-      },
-      {
-        text: ")",
+        href: "http://kasboard-mainnet.kas.pa/?orgId=1&refresh=1m&from=now-5m&to=now",
       },
     ]
   },
