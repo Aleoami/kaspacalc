@@ -4,6 +4,7 @@ import { DefaultInputValues, KaspaInputs } from "../constants/Kaspa";
 class SessionStore {
   @observable
   defaultInputValues: DefaultInputValues | null = null;
+  triggerEvents: Record<string, number | undefined> = {};
 
   constructor() {
     makeAutoObservable(this);
@@ -22,6 +23,13 @@ class SessionStore {
     };
     this.defaultInputValues = result;
     window.localStorage.setItem("defaultInputValuesV2", JSON.stringify(result));
+  };
+
+  trigger = (key: string): void => {
+    this.triggerEvents = {
+      ...this.triggerEvents,
+      [key]: (this.triggerEvents?.[key] || 0) + 1,
+    };
   };
 }
 
