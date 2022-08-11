@@ -50,10 +50,21 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
   },
   networkHashrate: {
     title: "Network hashrate, Thash/s",
-    label: [{
-        text: "see hashrate here",
+    label: [
+	{
+        text: "see hashrate ",
+	},
+	{
+        text: "here",
+        href: "https://minerstat.com/coin/KAS/network-hashrate",
+	},
+	{
+        text: " or ",
+	},
+	{
+        text: "here",
         href: "http://kasboard-mainnet.kas.pa/?orgId=1&refresh=1m&from=now-5m&to=now",
-      },
+	},
     ]
   },
   deviceHashrate: {
