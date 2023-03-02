@@ -11,3 +11,27 @@ export async function fetchKaspaUsdPrice() {
 
   return kaspaInUsd;
 }
+
+export async function fetchRewardPerBlock() {
+  const {
+    data: {
+      blockreward: blockRewardValue,
+    },
+  } = await axios.get(
+    "https://api.kaspacalc.net/info/blockreward"
+  );
+
+  return blockRewardValue;
+}
+
+export async function fetchNetworkHashrateThs() {
+  const {
+    data: {
+      hashrate: networkHashrateThs,
+    },
+  } = await axios.get(
+    "https://api.kaspacalc.net/info/hashrate"
+  );
+
+  return networkHashrateThs;
+}

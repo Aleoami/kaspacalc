@@ -5,6 +5,8 @@ import useAsyncEffect from "use-async-effect";
 import { KaspaInputs } from "../constants/Kaspa";
 import { StoreTrigger } from "../constants/trigger";
 import { fetchKaspaUsdPrice } from "../services/kaspa";
+import { fetchRewardPerBlock } from "../services/kaspa";
+import { fetchNetworkHashrateThs } from "../services/kaspa";
 import { useStore } from "./App/StoreProvider";
 
 interface KaspaInputProps {
@@ -23,15 +25,34 @@ const KaspaInput: React.FC<KaspaInputProps> = ({
   const fetchPriceTrigger =
     useStore("sessionStore").triggerEvents[StoreTrigger.FETCH_KASPA_PRICE];
 
-  useAsyncEffect(async () => {
-    if (!fetchPriceTrigger || label !== "coinPricePer1M") return;
+  const fetchBlockRewardTrigger =
+    useStore("sessionStore").triggerEvents[StoreTrigger.FETCH_KASPA_BLOCK_REWARD];
 
-    const kaspaInUsd = await fetchKaspaUsdPrice();
-    setData(label, `${kaspaInUsd * 1000000}`);
+  const fetchNetworkHashrateTrigger =
+    useStore("sessionStore").triggerEvents[StoreTrigger.FETCH_NETWORK_HASHRATE];
+
+  useAsyncEffect(async () => {
+    if ((label === "coinPricePer1M") && (fetchPriceTrigger)) {
+      const kaspaInUsd = await fetchKaspaUsdPrice();
+      setData(label, `${kaspaInUsd * 1000000}`);
+    }
+
+    if ((label === "rewardPerBlock") && (fetchBlockRewardTrigger)) {
+      const rewardPerBlock = await fetchRewardPerBlock();
+      setData(label, `${rewardPerBlock}`);
+    }
+
+    if ((label === "networkHashrate") && (fetchNetworkHashrateTrigger)) {
+      const hashrateThs = await fetchNetworkHashrateThs();
+      setData(label, `${hashrateThs}`);
+    }
 
     // @NOTE: нас интересует лишь триггер, что бы не заменял значения
     // когда компонент перерендоривался
-  }, [fetchPriceTrigger]);
+  }, [
+    ((label === "coinPricePer1M") && (fetchPriceTrigger)) ||
+    ((label === "rewardPerBlock") && (fetchBlockRewardTrigger)) ||
+    ((label === "networkHashrate") && (fetchNetworkHashrateTrigger))]);
 
   return (
     <Wrapper className={className}>

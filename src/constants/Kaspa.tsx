@@ -46,13 +46,24 @@ export type DefaultInputValues = { [key in keyof typeof InputValues]?: number };
 export const INIT_INPUTS_RECORDS: KaspaInputs = {
   rewardPerBlock: {
     title: "Reward per block, Kaspa",
-    label: [{ text: "is 349.23 for today" }],
+    label: [
+      {
+        text: "click to insert current value",
+        onClick: () =>
+          store.sessionStore.trigger(StoreTrigger.FETCH_KASPA_BLOCK_REWARD),
+      },    
+    ],
   },
   networkHashrate: {
     title: "Network hashrate, Thash/s",
     label: [
+      {
+        text: "click to insert current value",
+        onClick: () =>
+          store.sessionStore.trigger(StoreTrigger.FETCH_NETWORK_HASHRATE),
+      },    
 	{
-        text: "see hashrate ",
+        text: " or see hashrate ",
 	},
 	{
         text: "here",
@@ -71,11 +82,11 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
     title: "Your device hashrate, Mhash/s",
     label: [
       {
-        text: "either enter the value from your miner ",
+        text: "enter the value from your miner ",
       },
       {
         text: "or look for it in one of these tables",
-        href: "https://kaspawiki.net/index.php/Hashrate_tables",
+        href: "https://wiki.kaspa.org/en/hashrate-tables",
       },
     ],
   },
@@ -84,16 +95,16 @@ export const INIT_INPUTS_RECORDS: KaspaInputs = {
   },
   electricityPrice: {
     title: "Electricity price, per 1 KWh",
-    label: [{ text: "in your local currency unit" }],
+    label: [{ text: "in $" }],
   },
   coinPricePer1M: {
     title: "Kaspa price, per 1M",
     label: [
       {
-        text: "in the same currency unit as the electricity price (",
+        text: "in $ (",
       },
       {
-        text: "click here to insert Coingecko reported price in USD",
+        text: "click to insert Coingecko reported price",
         onClick: () =>
           store.sessionStore.trigger(StoreTrigger.FETCH_KASPA_PRICE),
       },
@@ -112,34 +123,43 @@ interface KaspaTotalField {
 
 export const KASPA_TOTAL: KaspaTotalField[] = [
   {
-    label: "Net cost in local currency per 1M Kaspa:",
-    bold: true,
-    calcValue: (data) =>
-      numberWithSpaces(Number(calcCostOf1M(data) || 0).toFixed(2)),
-  },
-  {
-    label: "Profitability per 1M Kaspa:",
-    bold: true,
-    calcValue: (data) =>
-      numberWithSpaces(Number(calcProfitabilityOf1M(data) || 0).toFixed(2)),
-  },
-  {
-    label: "Daily profit:",
+    label: "Daily profit, $:",
     bold: true,
     calcValue: (data) =>
       numberWithSpaces(Number(calcDailyProfit(data) || 0).toFixed(2)),
   },
   {
-    label: "Weekly profit:",
-    bold: true,
+    label: "with daily coins number of:",
     calcValue: (data) =>
-      numberWithSpaces(Number(calcWeeklyProfit(data) || 0).toFixed(2)),
+      numberWithSpaces(Number(calcDailyLocalSupply(data) || 0).toFixed(2)),
   },
   {
-    label: "Monthly profit (for 30 days):",
+    label: "Weekly profit, $:",
     bold: true,
     calcValue: (data) =>
-      numberWithSpaces(Number(calcMonthlyProfit(data) || 0).toFixed(2)),
+      numberWithSpaces(Number(7 * (calcDailyProfit(data) || 0)).toFixed(2)),
+  },
+  {
+    label: "with weekly coins number of:",
+    calcValue: (data) =>
+      numberWithSpaces(Number(7 * (calcDailyLocalSupply(data) || 0)).toFixed(2)),
+  },
+  {
+    label: "Monthly profit (for 30 days), $:",
+    bold: true,
+    calcValue: (data) =>
+      numberWithSpaces(Number(30 * (calcDailyProfit(data) || 0)).toFixed(2)),
+  },
+  {
+    label: "with monthly coins number of:",
+    calcValue: (data) =>
+      numberWithSpaces(Number(30 * (calcDailyLocalSupply(data) || 0)).toFixed(0)),
+  },
+  {
+    label: "Profitability per 1M Kaspa, $:",
+    bold: true,
+    calcValue: (data) =>
+      numberWithSpaces(Number(calcProfitabilityOf1M(data) || 0).toFixed(2)),
   },
   {
     label: "while earning 1M Kaspa will take, days:",
@@ -147,14 +167,14 @@ export const KASPA_TOTAL: KaspaTotalField[] = [
       numberWithSpaces(Number(calcDaysTo1M(data) || 0).toFixed(2)),
   },
   {
-    label: "with approx. Kaspa per day:",
+    label: "and net cost of 1M Kaspa is, $:",
     calcValue: (data) =>
-      numberWithSpaces(Number(calcDailyLocalSupply(data) || 0).toFixed(0)),
+      numberWithSpaces(Number(calcCostOf1M(data) || 0).toFixed(2)),
   },
   {
-    label: "or blocks per day:",
+    label: "with blocks per day:",
     calcValue: (data) =>
-      numberWithSpaces(Number(calcBlocksPerDay(data) || 0).toFixed(2)),
+      numberWithSpaces(Number(calcBlocksPerDay(data) || 0).toFixed(3)),
   },
   {
     label: "or on average 1 block every, minutes:",
