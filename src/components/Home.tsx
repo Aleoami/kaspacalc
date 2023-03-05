@@ -40,6 +40,15 @@ const Home: React.FC = () => {
 
   return (
     <CustomContainer>
+      <div className="text-center mt-2 p-3">
+        <a href="https://kaspa.org">kaspa.org</a>&nbsp;|&nbsp;
+        <a href="https://kaspa.network">kaspa.network</a>&nbsp;|&nbsp;
+        <a href="https://wiki.kaspa.org">wiki</a>&nbsp;|&nbsp;
+        <a href="https://wallet.kaspanet.io">web wallet</a>&nbsp;|&nbsp;
+        <a href="https://explorer.kaspacalc.net">explorer-1</a>&nbsp;|&nbsp;
+        <a href="https://kas.fyi">explorer-2</a>&nbsp;|&nbsp;
+        <a href="https://api.kaspacalc.net/docs">explorer-1 API</a></div>
+      <hr></hr>
       <h1 className="text-center mt-2 p-3">Calculate Kaspa net cost, profitability and mining rate</h1>
       {getKeys(kaspaInputs).map((key, index) => (
         <OffsetKaspaInput
@@ -50,6 +59,7 @@ const Home: React.FC = () => {
         />
       ))}
       <KaspaTotal data={kaspaInputs} className="mt-4" />
+      <div className="text-center mt-2 p-3">(c) 2021-2023 kaspacalc.net</div>
     </CustomContainer>
   );
 };
